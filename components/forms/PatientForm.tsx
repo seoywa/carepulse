@@ -4,37 +4,20 @@ import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  Form
 } from "@/components/ui/form";
-import CustomFormField from "../CustomFormField";
+import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
-import { userFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
-
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  DATE_PICKER = "datePicker",
-  SELECT = "select",
-  SKELETON = "skeleton",
-}
+import { PatientFormValidation } from "@/lib/validation";
 
 const PatientForm = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<z.infer<typeof userFormValidation>>({
-    resolver: zodResolver(userFormValidation),
+  const form = useForm<z.infer<typeof PatientFormValidation>>({
+    resolver: zodResolver(PatientFormValidation),
     defaultValues: {
       name: "",
       email: "",
@@ -46,7 +29,7 @@ const PatientForm = () => {
     name,
     email,
     phone,
-  }: z.infer<typeof userFormValidation>) {
+  }: z.infer<typeof PatientFormValidation>) {
     setIsLoading(true);
 
     try {
