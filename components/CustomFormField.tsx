@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { E164Number } from "libphonenumber-js/core";
 import Image from "next/image";
 import ReactDatePicker from "react-datepicker";
 import { Control } from "react-hook-form";
-import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
+import PhoneInput, { type Value } from "react-phone-number-input";
 
 import { Checkbox } from "./ui/checkbox";
 import {
@@ -16,6 +16,7 @@ import {
 import { Input } from "./ui/input";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
+import { Phone } from "lucide-react";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -79,12 +80,12 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
     case FormFieldType.PHONE_INPUT:
       return (
         <FormControl>
-          <PhoneInput
+          <PhoneInput 
             defaultCountry="US"
-            placeholder={props.placeholder}
-            international
+            placeholder={field.placeholder}
             withCountryCallingCode
-            value={field.value as E164Number | undefined}
+            international
+            value={field.value as Value | undefined}
             onChange={field.onChange}
             className="input-phone"
           />
